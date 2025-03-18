@@ -290,3 +290,23 @@ Your assignment will be evaluated based on the following criteria:
 ---
 
 Good luck, and happy analyzing!
+
+
+# Analysis
+
+## Task 1: **Binge Watching Trends**
+In this task we analyzed age groups and their tendency to binge watch shows on a streaming platform.
+We group binge watchers by their age group, and compare those users against the total count of users in the group.
+From this, we determine a percentage of this group which tends to binge watch.
+Our results found that Teens have the highest percentage of binge watchers at 60%.
+Next is Adults, with 57%. Lastly we have Seniors with 50%.
+
+## Task 2: **Identify Churn / Unsatisfied Users**
+In this task we find users who have decided to cancel the service, and who have had low interaction with the service during their time.
+We count the number of users who fit this criteria. In this case we have 11 users who are detected at churn.
+
+## Task 3: **Trends over the years**
+In this task we want to look at a time series set of data for movies watched over the years.
+we have a range of 6 years: 2018-2023, and we count the number of movies watched for each year.
+We then sort the table to show trend over time.
+It appears that movie watching dropped significantly in 2020, but otherwise remained mostly the same.
