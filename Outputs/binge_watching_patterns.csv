@@ -1,1 +1,4 @@
-
+AgeGroup,binge_watchers,total_count,percentage
+Senior,16,32,50.0
+Teen,18,30,60.0
+Adult,22,38,57.89473684210527

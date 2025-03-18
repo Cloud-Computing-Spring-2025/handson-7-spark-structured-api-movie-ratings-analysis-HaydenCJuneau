@@ -1,4 +1,4 @@
-from pyspark.sql import SparkSession
+from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql.functions import col, count, round as spark_round
 
 def initialize_spark(app_name="Task1_Binge_Watching_Patterns"):
@@ -22,17 +22,19 @@ def load_data(spark, file_path):
     df = spark.read.csv(file_path, header=True, schema=schema)
     return df
 
-def detect_binge_watching_patterns(df):
+def detect_binge_watching_patterns(df: DataFrame) -> DataFrame:
     """
     Identify the percentage of users in each age group who binge-watch movies.
-
-    TODO: Implement the following steps:
-    1. Filter users who have `IsBingeWatched = True`.
-    2. Group by `AgeGroup` and count the number of binge-watchers.
-    3. Count the total number of users in each age group.
-    4. Calculate the binge-watching percentage for each age group.
     """
-    pass  # Remove this line after implementation
+    filtered = df.filter((df.IsBingeWatched == True))
+
+    total_counts = df.groupby("AgeGroup").count().withColumnRenamed("count", "total_count")
+    binge_counts = filtered.groupby("AgeGroup").count().withColumnRenamed("count", "binge_watchers")
+
+    result = binge_counts.join(total_counts, "AgeGroup")
+    result = result.withColumn("percentage", (col("binge_watchers") / col("total_count")) * 100)
+    
+    return result
 
 def write_output(result_df, output_path):
     """
@@ -46,8 +48,8 @@ def main():
     """
     spark = initialize_spark()
 
-    input_file = "/workspaces/MovieRatingsAnalysis/input/movie_ratings_data.csv"
-    output_file = "/workspaces/MovieRatingsAnalysis/outputs/binge_watching_patterns.csv"
+    input_file = "/opt/bitnami/spark/Movie/input/movie_ratings_data.csv"
+    output_file = "/opt/bitnami/spark/Movie/output/binge_watching_patterns.csv"
 
     df = load_data(spark, input_file)
     result_df = detect_binge_watching_patterns(df)  # Call function here
